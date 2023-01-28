@@ -24,9 +24,6 @@ function setup(){
     
   // create left Boundary
   leftBoundary=createSprite(0,0,100,800);
-  leftBoundary.invisible = false;
-  leftBoundary.visible = true;
-  leftBoundary.isvisible = false;
   leftBoundary.visible = false;
 
   //create right Boundary
@@ -47,17 +44,10 @@ function draw() {
   boy.collide(rightBoundary);
   
   //code to reset the background
-  if(path.y < 400 ){
-    path.y = height*2;
-  } 
-
-  if(path.y > 400 ){
+  if(path.y > 600 ){
     path.y = height/2;
   } 
 
-  if(path.y > 400 ){
-    path.y = width/2;
-  } 
-  
+
   drawSprites();
 }
