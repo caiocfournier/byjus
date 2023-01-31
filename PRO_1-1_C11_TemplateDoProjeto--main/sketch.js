@@ -20,11 +20,11 @@ function setup(){
   //creating boy running
   boy = createSprite(180,340,30,30);
   boy.scale=0.08;
-  boy.addAnimation("JakeRunning",boyImg);
+  boy.addAnimation("JakeRunning",boyImg);                      
     
-  // create left Boundary
+  // create left Boundary                                                           
   leftBoundary=createSprite(0,0,100,800);
-  leftBoundary.visible = false;
+  leftBoundary.visible = false;                                         
 
   //create right Boundary
   rightBoundary=createSprite(410,0,100,800);
