@@ -9,8 +9,9 @@
  var pontos;
  var grupo_obstaculo, grupo_nuvem;
  var gameOver_imagem, restart_imagem;
+ var checkpoint_som, die_som, jump_som;
 
- function preload(){
+ function preload() {
   trex_correndo = loadAnimation("trex1.png", "trex3.png", "trex4.png");
   trex_colidindo = loadAnimation("trex_collided.png");
   chao_imagem = loadImage("ground2.png");
@@ -25,6 +26,10 @@
 
   gameOver_imagem = loadImage("gameOver.png");
   restart_imagem= loadImage("restart.png");
+
+  checkpoint_som = loadSound("checkpoint.mp3");
+  die_som = loadSound("die.mp3");
+  jump_som = loadSound("jump.mp3");
  }
 
  function setup(){
@@ -64,13 +69,17 @@
   if(estadoDeJogo === PLAY){
     gameOver.visible = false;
     restart.visible = false;
-     pontos = pontos + Math.round(frameCount/60);
-     chao.velocityX = -6;
+     pontos = pontos + Math.round(getFrameRate()/60);
+     if(pontos > 0 && pontos % 100 === 0){
+        checkpoint_som.play();
+     }
+     chao.velocityX = -(6 + 3*pontos/100);
      if(chao.x < 0){
      chao.x = chao.width / 2;
        }
       if(keyDown("space") && trex.y >= 100){
         trex.velocityY = -10;
+        jump_som.play();
        }
        trex.velocityY = trex.velocityY + 0.5;  
        criarNuvens();
@@ -78,6 +87,8 @@
 
        if(grupo_obstaculo.isTouching(trex)){
         estadoDeJogo = END;
+        die_som.play();
+        
        }
   }
   else if(estadoDeJogo === END){
@@ -92,6 +103,10 @@
 
     grupo_nuvem.setLifetimeEach(-1);
     grupo_obstaculo.setLifetimeEach(-1);
+
+    if(mousePressedOver(restart)){
+      reset();
+    }
   }
 
   trex.collide(chao_invisivel);
@@ -122,7 +137,7 @@ function criarNuvens(){
  function criarObstaculos(){
   if(frameCount % 60 === 0){
     obstaculo = createSprite(400, 165, 10, 40);
-    obstaculo.velocityX = -6;
+    obstaculo.velocityX = -(6 + 3*pontos/100);
     
     var rand = Math.round(random(1,6));
     switch(rand) {
@@ -147,3 +162,15 @@ function criarNuvens(){
     grupo_obstaculo.add(obstaculo);
   }
  }  
+
+ function reset(){
+   estadoDeJogo = PLAY;
+   gameOver.visible = false;
+   restart.visible = false;  
+   
+   grupo_nuvem.destroyEach();
+   grupo_obstaculo.destroyEach();
+
+   trex.changeAnimation("correndo", trex_correndo);
+   pontos = 0;
+ }
