@@ -153,18 +153,6 @@ function draw() {
         redCG.setVelocityXEach(0);
         redCG.setLifetimeEach(-1);
 
-        // if(keyDown("UP_ARROW")) {
-        // reset;
-        // }
-
-        // if(key("UP_ARROW")) {
-        // reset();
-        // }
-
-        // if(keyDown()) {
-        // reset();
-        // }
-
         if (keyDown("UP_ARROW")) {
             reset();
         }
