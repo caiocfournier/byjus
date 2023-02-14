@@ -33,25 +33,25 @@
  }
 
  function setup(){
-  createCanvas(600, 200);
+  createCanvas(windowWidth, windowHeight);
  
-  trex = createSprite(50, 160, 20, 50);
+  trex = createSprite(50, height -70, 20, 50);
   trex. addAnimation("correndo", trex_correndo);
   trex.addAnimation("colidindo", trex_colidindo);
   trex.scale = 0.5;
 
-  chao = createSprite(200, 180, 400, 20);
+  chao = createSprite(width/2, height-70, width, 2);
   chao.addImage("chao", chao_imagem);
   chao.x = chao.width / 2;
 
-  chao_invisivel = createSprite(200, 190, 400, 10);
+  chao_invisivel = createSprite(width/2, height-5, width, 125);
   chao_invisivel.visible = false;
 
-  gameOver = createSprite(300, 100);
+  gameOver = createSprite(width/2, height/2 - 50);
   gameOver.addImage(gameOver_imagem);
   gameOver.scale = 0.5;
 
-  restart= createSprite(300, 140);
+  restart= createSprite(width/2, height/2);
   restart.addImage(restart_imagem);
   restart.scale = 0.5;
 
@@ -63,7 +63,7 @@
 
  function draw(){
   background(255);
-  text("pontuação: " + pontos, 500, 50);
+  text("pontuação: " + pontos, 30, 50);
   trex.setCollider("circle", 0, 0, 40);
   
   if(estadoDeJogo === PLAY){
@@ -77,9 +77,10 @@
      if(chao.x < 0){
      chao.x = chao.width / 2;
        }
-      if(keyDown("space") && trex.y >= 100){
+      if(touches.length > 0 || keyDown("space") && trex.y >= height-120){
         trex.velocityY = -10;
         jump_som.play();
+        touches = [];
        }
        trex.velocityY = trex.velocityY + 0.5;  
        criarNuvens();
@@ -119,13 +120,13 @@
 
 function criarNuvens(){
    if(frameCount % 60 === 0){
-    nuvem = createSprite(600, 100, 40, 10);
+    nuvem = createSprite(width+20, height-300, 40, 10);
     nuvem.addImage(nuvem_imagem);
-    nuvem.y = Math.round(random(10,100));
+    nuvem.y = Math.round(random(100,220));
     nuvem.scale = 0.7;
     nuvem.velocityX = -3; 
     
-    nuvem.lifetime = 200;
+    nuvem.lifetime = 800;
 
     nuvem.depth = trex.depth;
     trex.depth = trex.depth + 1; 
@@ -136,7 +137,7 @@ function criarNuvens(){
 
  function criarObstaculos(){
   if(frameCount % 60 === 0){
-    obstaculo = createSprite(400, 165, 10, 40);
+    obstaculo = createSprite(width+20, height-85, 10, 40);
     obstaculo.velocityX = -(6 + 3*pontos/100);
     
     var rand = Math.round(random(1,6));
@@ -157,7 +158,7 @@ function criarNuvens(){
     }
 
     obstaculo.scale = 0.5;
-    obstaculo.lifetime = 100;
+    obstaculo.lifetime = 800;
 
     grupo_obstaculo.add(obstaculo);
   }
