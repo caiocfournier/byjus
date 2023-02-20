@@ -4,6 +4,7 @@ var climberImg, climber, climbersGroup;
 var ghost, ghostImg;
 var invisibleBlockGroup, invisibleBlock;
 var gameState = "play"
+var rightEdge, leftEdge, bottomEdge;
 
 function preload(){
   towerImg = loadImage("tower.png");
@@ -62,7 +63,7 @@ function draw() {
 
   if (gameState === "end"){
     stroke("yellow");
-    Fill("yellow");
+    fill("yellow");
     textSize(30);
     text("fim de jogo", 230, 250)
   }
