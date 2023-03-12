@@ -9,6 +9,9 @@ var engine,
 var backgroundImg;
 var torre,
     torreImg;
+var canhao,
+    angulo,
+    canhaoBola;
 
 function preload() {
     backgroundImg = loadImage("./assets/background.gif");
@@ -21,6 +24,9 @@ function setup() {
     engine = Engine.create();
     world = engine.world;
 
+    angleMode(DEGREES);
+    angulo = 15;
+
     var options = {
         isStatic: true
     }
@@ -31,9 +37,8 @@ function setup() {
     torre = Bodies.rectangle(160, 350, 160, 310, options);
     World.add(world, torre);
 
-    angle = 20;
-    canhao = new Canhao(180, 110, 130, 100, angle);
-
+    canhao = new Canhao(180, 110, 130, 100, angulo);
+    canhaoBola = new CanhaoBola(canhao.x, canhao.y);
 }
 
 function draw() {
@@ -49,4 +54,5 @@ function draw() {
     pop();
 
     canhao.display();
+    canhaoBola.display();
 }
