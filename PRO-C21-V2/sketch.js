@@ -25,10 +25,10 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	groundObj = new Ground(width/2, 920, width, 10);
-	leftSide = new Ground(1300, 860, 10, 120);
-	rightSide = new Ground(1500, 860, 10, 120);
-	rightWall = new Ground(width-5, 860, 10, height*2);
+	groundObj = new Ground(width/2, height-10, width, 10);
+	leftSide = new Ground(width-650, height-70, 10, 120);
+	rightSide = new Ground(width-400, height-70, 10, 120);
+	rightWall = new Ground(width-5, height-10, 10, height*2);
 
 	ball = Bodies.circle(200, 100, 20, ball_options);
     World.add(world, ball);
@@ -58,8 +58,6 @@ function draw() {
 
   ellipse(ball.position.x, ball.position.y, 20);
   
-  drawSprites();
-
   Engine.update(engine);
 }
 
