@@ -12,6 +12,7 @@ var torre,
 var canhao,
     angulo,
     canhaoBola;
+var bolas = [];
 
 function preload() {
     backgroundImg = loadImage("./assets/background.gif");
@@ -38,7 +39,6 @@ function setup() {
     World.add(world, torre);
 
     canhao = new Canhao(180, 110, 130, 100, angulo);
-    canhaoBola = new CanhaoBola(canhao.x, canhao.y);
 }
 
 function draw() {
@@ -53,6 +53,28 @@ function draw() {
     image(torreImg, torre.position.x, torre.position.y, 160, 310);
     pop();
 
+    for (var i = 0; i < bolas.length; i++){
+        mostrarCanhaoBola(bolas[i]);
+    }
+
     canhao.display();
-    canhaoBola.display();
+}
+
+function keyPressed() {
+    if (keyCode === DOWN_ARROW) {
+        canhaoBola = new CanhaoBola(canhao.x, canhao.y);
+        bolas.push(canhaoBola);
+    }
+}
+
+function mostrarCanhaoBola(bola){
+ if(bola){
+    bola.display();
+ }   
+}
+
+function keyReleased() {
+    if (keyCode === DOWN_ARROW) {
+        bolas[bolas.length - 1].atirar();
+    }
 }
