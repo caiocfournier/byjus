@@ -27,10 +27,13 @@ class CanhaoBola {
         imageMode(CENTER);
         image(this.image, pos.x, pos.y, this.r, this.r);
         pop();
-    
 
-    for (var i = 0; i< this.trajetoria.length; i++){
-      image(this.image, this.trajetoria[i][0], this.trajetoria[i][1], 5, 5);
+        if (this.body.velocity.x > 0 && pos.x > 10) {
+            var posicao = [pos.x, pos.y];
+            this.trajetoria.push(posicao);
+        }
+        for (var i = 0; i < this.trajetoria.length; i++) {
+            image(this.image, this.trajetoria[i][0], this.trajetoria[i][1], 5, 5);
+        }
     }
-  }
 }

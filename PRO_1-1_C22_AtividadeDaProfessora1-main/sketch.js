@@ -13,6 +13,7 @@ var canhao,
     angulo,
     canhaoBola;
 var bolas = [];
+var barcos = [];
 
 function preload() {
     backgroundImg = loadImage("./assets/background.gif");
@@ -53,24 +54,53 @@ function draw() {
     image(torreImg, torre.position.x, torre.position.y, 160, 310);
     pop();
 
-    for (var i = 0; i < bolas.length; i++){
+    for (var i = 0; i < bolas.length; i++) {
         mostrarCanhaoBola(bolas[i]);
     }
 
     canhao.display();
+    mostrarBarcos();
 }
 
 function keyPressed() {
     if (keyCode === DOWN_ARROW) {
         canhaoBola = new CanhaoBola(canhao.x, canhao.y);
+        canhaoBola.trajetoria = [];
+        Matter.Body.setAngle(canhaoBola.body, canhao.angulo);
         bolas.push(canhaoBola);
     }
 }
 
-function mostrarCanhaoBola(bola){
- if(bola){
-    bola.display();
- }   
+function mostrarCanhaoBola(bola) {
+    if (bola) {
+        bola.display();
+    }
+}
+
+function mostrarBarcos() {
+    if (barcos.lenght > 0) {
+        if (barcos[barcos.lenght - 1] === undefined ||
+            barcos[barcos.lenght - 1].body.position.x < width - 300) {
+            var posicoes = [-40, -60, -70, -20];
+            var posicao = random(posicoes);
+            var barco = new Barco(width, height - 100, 170, 170, posicao);
+
+            barcos.push(barco);
+        }
+
+        for (var i = o; i < barcos.length; i++) {
+            Matter.Body,
+            setVelocity(barcos[i].body, {
+                x: -0.9,
+                y: 0
+            });
+
+            barcos[i].display();
+        }
+    } else {
+        barco = new Barco(width - 79, height - 60, 170, 170, -80);
+        barcos.push(barco);
+    }
 }
 
 function keyReleased() {
