@@ -55,11 +55,27 @@ function draw() {
     pop();
 
     for (var i = 0; i < bolas.length; i++) {
-        mostrarCanhaoBola(bolas[i]);
+        mostrarCanhaoBola(bolas[i], i);
+        colisaoComBarco(i);
     }
 
     canhao.display();
     mostrarBarcos();
+}
+
+
+function colisaoComBarco(index) {
+    for (var i = 0; i < barcos.length; i++) {
+        if (bolas[index] !== undefined && barcos[i] !== undefined) {
+            var colisao = Matter.SAT.collides(bolas[index].body, barcos[i].body);
+            if (colisao.coliseded) {
+                barcos[i].remove[i];
+
+                Matter.World.remove(world, bolas[index].body);
+                delete bolas[index]
+            }
+        }
+    }
 }
 
 function keyPressed() {
@@ -71,16 +87,18 @@ function keyPressed() {
     }
 }
 
-function mostrarCanhaoBola(bola) {
+function mostrarCanhaoBola(bola, index){
     if (bola) {
         bola.display();
+        if (bola.body.position.x >= width || bola.body.position.y >= height - 50) {
+            bolza.remove(index);
+        }
     }
 }
 
 function mostrarBarcos() {
     if (barcos.lenght > 0) {
-        if (barcos[barcos.lenght - 1] === undefined ||
-            barcos[barcos.lenght - 1].body.position.x < width - 300) {
+        if (barcos[barcos.lenght - 1] === undefined || barcos[barcos.lenght - 1].body.position.x < width - 300) {
             var posicoes = [-40, -60, -70, -20];
             var posicao = random(posicoes);
             var barco = new Barco(width, height - 100, 170, 170, posicao);
@@ -88,7 +106,7 @@ function mostrarBarcos() {
             barcos.push(barco);
         }
 
-        for (var i = o; i < barcos.length; i++) {
+        for (var i = 0; i < barcos.length; i++) {
             Matter.Body,
             setVelocity(barcos[i].body, {
                 x: -0.9,

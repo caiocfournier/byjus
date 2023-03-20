@@ -9,6 +9,19 @@ class CanhaoBola {
         this.trajetoria = [];
         World.add(world, this.body);
     }
+
+    remove(index) {
+        Matter.body.setVelocity(this.body, {
+            x: 0,
+            y: 0
+        });
+
+        setTimeout(() => {
+            Matter.World.remove(world, this.body);
+            delete bolas[index];
+        }, 1000);
+    }
+
     atirar() {
         var novoAngulo = canhao.angulo - 28;
         novoAngulo = novoAngulo * (3.14 / 180);
