@@ -14,10 +14,15 @@ var canhao,
     canhaoBola;
 var bolas = [];
 var barcos = [];
+var barcospriteData,
+    barcospritesheet;
+var barcoAnimantion = [];
 
 function preload() {
     backgroundImg = loadImage("./assets/background.gif");
     torreImg = loadImage("./assets/tower.png");
+    barcospriteData = loadJSON("assets/boat/boat.json");
+    barcospritesheet = loadImage("assets/boat/boat.png");
 }
 
 function setup() {
@@ -25,6 +30,12 @@ function setup() {
     canvas = createCanvas(1200, 600);
     engine = Engine.create();
     world = engine.world;
+    var barcoFrame = barcospriteData.frames
+    for (var i = 0; i < barcoFrame.length; i++) {
+        var pos = barcoFrame[i].position;
+        var img = barcospritesheet.get(pos.x, pos.y, pos.w, pos.h)
+        barcoAnimantion.push(img)
+    }
 
     angleMode(DEGREES);
     angulo = 15;
@@ -87,36 +98,38 @@ function keyPressed() {
     }
 }
 
-function mostrarCanhaoBola(bola, index){
+function mostrarCanhaoBola(bola, index) {
     if (bola) {
         bola.display();
         if (bola.body.position.x >= width || bola.body.position.y >= height - 50) {
-            bolza.remove(index);
+            bola.remove(index);
         }
     }
 }
 
 function mostrarBarcos() {
-    if (barcos.lenght > 0) {
-        if (barcos[barcos.lenght - 1] === undefined || barcos[barcos.lenght - 1].body.position.x < width - 300) {
+    if (barcos.length > 0) {
+        if (barcos[barcos.length - 1] === undefined || barcos[barcos.length - 1].body.position.x < width - 300) {
             var posicoes = [-40, -60, -70, -20];
             var posicao = random(posicoes);
-            var barco = new Barco(width, height - 100, 170, 170, posicao);
+            var barco = new Barco(width, height - 100, 170, 170, posicao,barcoAnimantion);
 
             barcos.push(barco);
         }
 
         for (var i = 0; i < barcos.length; i++) {
-            Matter.Body,
-            setVelocity(barcos[i].body, {
-                x: -0.9,
-                y: 0
-            });
+            if (barcos[i]) {
+                Matter.Body.setVelocity(barcos[i].body, {
+                    x: -0.9,
+                    y: 0
+                });
 
-            barcos[i].display();
+                barcos[i].display();
+                barcos[i].animate();
+            }
         }
     } else {
-        barco = new Barco(width - 79, height - 60, 170, 170, -80);
+        barco = new Barco(width - 79, height - 60, 170, 170, -80,barcoAnimantion);
         barcos.push(barco);
     }
 }
