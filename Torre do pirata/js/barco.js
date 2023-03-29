@@ -1,6 +1,7 @@
 class Barco {
     constructor(x, y, w, h, barcoPos, barcoAnimation) {
-        this.animation = barcoAnimation
+        this.animation = barcoAnimation;
+        this.speed = 0.05;
         this.body = Bodies.rectangle(x, y, w, h);
         this.w = w;
         this.h = h;
@@ -11,19 +12,24 @@ class Barco {
     }
 
     remove(index) {
+        this.animation = quebradoBarcoAnimacao;
+        this.speed = 0.05;
+        this.w = 300;
+        this.h = 300;
+        this.isBroken = true;
         setTimeout(() => {
             Matter.World.remove(world, barcos[index].body);
             delete barcos[index];
         }, 2000);
     }
-     animate(){
-        this.speed += 0.05
-     }
+    animate() {
+        this.speed += 0.05;
+    }
 
     display() {
         var angulo = this.body.angle;
         var pos = this.body.position;
-        var index = floor(this.speed % this.animation.length)
+        var index = floor(this.speed % this.animation.length);
         push();
         translate(pos.x, pos.y);
         rotate(angulo);

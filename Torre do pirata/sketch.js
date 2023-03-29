@@ -17,12 +17,23 @@ var barcos = [];
 var barcospriteData,
     barcospritesheet;
 var barcoAnimantion = [];
+var quebradoBarcoAnimacao = [];
+var quebradoBarcoSpritedata,
+    quebradoBarcoSpritesheet;
+var aguaAnimacao = [];
+var aguaSpritedata,
+    aguaSpritesheet;
 
 function preload() {
     backgroundImg = loadImage("./assets/background.gif");
     torreImg = loadImage("./assets/tower.png");
     barcospriteData = loadJSON("assets/boat/boat.json");
     barcospritesheet = loadImage("assets/boat/boat.png");
+    quebradoBarcoSpritedata = loadJSON("assets/boat/brokenBoat.json");
+    quebradoBarcoSpritesheet = loadImage("assets/boat/brokenBoat.png");
+    aguaSpritedata = loadJSON("assets/waterSplash/waterSplash.json");
+    aguaSpritesheet = loadImage("assets/waterSplash/waterSplash.png");
+
 }
 
 function setup() {
@@ -30,11 +41,26 @@ function setup() {
     canvas = createCanvas(1200, 600);
     engine = Engine.create();
     world = engine.world;
+
     var barcoFrame = barcospriteData.frames
     for (var i = 0; i < barcoFrame.length; i++) {
         var pos = barcoFrame[i].position;
         var img = barcospritesheet.get(pos.x, pos.y, pos.w, pos.h)
         barcoAnimantion.push(img)
+    }
+
+    var quebradoBarcoFrames = quebradoBarcoSpritedata.frames;
+    for (var i = 0; i < quebradoBarcoFrames.length; i++) {
+        var pos = quebradoBarcoFrames[i].position;
+        var img = quebradoBarcoSpritesheet.get(pos.x, pos.y, pos.w, pos.h);
+        quebradoBarcoAnimacao.push(img);
+    }
+
+    var aguaFrames = aguaSpritedata.frames;
+    for (var i = 0; i < aguaFrames.length; i++) {
+        var pos = aguaFrames[i].position;
+        var img = aguaSpritesheet.get(pos.x, pos.y, pos.w, pos.h);
+        aguaAnimacao.push(img);
     }
 
     angleMode(DEGREES);
@@ -77,10 +103,12 @@ function draw() {
 
 function colisaoComBarco(index) {
     for (var i = 0; i < barcos.length; i++) {
+
         if (bolas[index] !== undefined && barcos[i] !== undefined) {
-            var colisao = Matter.SAT.collides(bolas[index].body, barcos[i].body);
-            if (colisao.coliseded) {
-                barcos[i].remove[i];
+            var collision = Matter.SAT.collides(bolas[index].body, barcos[i].body);
+
+            if (collision.coliseded) {
+                barcos[i].remove(i);
 
                 Matter.World.remove(world, bolas[index].body);
                 delete bolas[index]
@@ -102,6 +130,7 @@ function mostrarCanhaoBola(bola, index) {
     if (bola) {
         bola.display();
         if (bola.body.position.x >= width || bola.body.position.y >= height - 50) {
+
             bola.remove(index);
         }
     }
@@ -109,10 +138,11 @@ function mostrarCanhaoBola(bola, index) {
 
 function mostrarBarcos() {
     if (barcos.length > 0) {
-        if (barcos[barcos.length - 1] === undefined || barcos[barcos.length - 1].body.position.x < width - 300) {
+        if (barcos[barcos.length - 1] === undefined ||
+            barcos[barcos.length - 1].body.position.x < width - 300) {
             var posicoes = [-40, -60, -70, -20];
             var posicao = random(posicoes);
-            var barco = new Barco(width, height - 100, 170, 170, posicao,barcoAnimantion);
+            var barco = new Barco(width, height - 100, 170, 170, posicao, barcoAnimantion);
 
             barcos.push(barco);
         }
@@ -129,7 +159,7 @@ function mostrarBarcos() {
             }
         }
     } else {
-        barco = new Barco(width - 79, height - 60, 170, 170, -80,barcoAnimantion);
+        barco = new Barco(width - 79, height - 60, 170, 170, -80, barcoAnimantion);
         barcos.push(barco);
     }
 }
