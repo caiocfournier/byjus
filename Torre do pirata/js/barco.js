@@ -6,8 +6,8 @@ class Barco {
         this.w = w;
         this.h = h;
 
-        this.image = loadImage("assets/boat.png");
         this.barcoPosition = barcoPos;
+        this.isBroken = false;
         World.add(world, this.body);
     }
 

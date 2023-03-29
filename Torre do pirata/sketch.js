@@ -23,6 +23,7 @@ var quebradoBarcoSpritedata,
 var aguaAnimacao = [];
 var aguaSpritedata,
     aguaSpritesheet;
+var isGameOver = false;
 
 function preload() {
     backgroundImg = loadImage("./assets/background.gif");
@@ -138,8 +139,7 @@ function mostrarCanhaoBola(bola, index) {
 
 function mostrarBarcos() {
     if (barcos.length > 0) {
-        if (barcos[barcos.length - 1] === undefined ||
-            barcos[barcos.length - 1].body.position.x < width - 300) {
+        if (barcos[barcos.length - 1] === undefined || barcos[barcos.length - 1].body.position.x < width - 300) {
             var posicoes = [-40, -60, -70, -20];
             var posicao = random(posicoes);
             var barco = new Barco(width, height - 100, 170, 170, posicao, barcoAnimantion);
@@ -156,6 +156,13 @@ function mostrarBarcos() {
 
                 barcos[i].display();
                 barcos[i].animate();
+                var collision = Matter.SAT.collides(torre, barcos[i].body);
+                if (collision.collided && ! barcos[i].isBroken) {
+                    isGameOver = true;
+                    gameOver();
+                }
+            } else {
+                barcos[i];
             }
         }
     } else {
@@ -168,4 +175,18 @@ function keyReleased() {
     if (keyCode === DOWN_ARROW) {
         bolas[bolas.length - 1].atirar();
     }
+}
+
+function gameOver() {
+    swal({
+        title: "fim de jogo!!",
+        text: "obrigado por jogar",
+        imageUrl: "https://raw.githubusercontent.com/whitehatjr/PiratesInvasion/main/assets/boat.png",
+        imageSize: "150x150",
+        confirmButtonText: "jogar Novamente"
+    }, function (isConfirm) {
+        if (isConfirm) {
+            location.reload();
+        }
+    });
 }
