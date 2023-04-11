@@ -84,6 +84,6 @@ function handleButtonPress() {
   jointLink.dettach();
   setTimeout(() => {
     bridge.break();
-  }, 5);
+  }, 5000);
  
 }
