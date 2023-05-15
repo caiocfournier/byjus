@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Corrida de Carros</title>
+    <!-- Lib -->
+    <script src="./lib/p5.min.js"></script>
+    <script src="./lib/p5.dom.min.js"></script>
+    <script src="./lib/p5.sound.min.js"></script>
+    <script src="./lib/p5.play.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    
+    <script src="./js/Game.js"></script>
+    <script src="./js/Form.js"></script>
+    <script src="./js/Player.js"></script>
+
+    <!-- ADICIONAR CÓDIGO Firebase SDK ABAIXO -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
+
+    <script>
+
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "firebase/app";
+      import { getAnalytics } from "firebase/analytics";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyC8TCSz3IEm_ukjg9bLt71sQaaD0p0_gAk",
+        authDomain: "jogo-do-balao-30cbb.firebaseapp.com",
+        projectId: "jogo-do-balao-30cbb",
+        storageBucket: "jogo-do-balao-30cbb.appspot.com",
+        messagingSenderId: "157163702655",
+        appId: "1:157163702655:web:6a1c7ef65e0565b1c3724a",
+        measurementId: "G-252F6G0315"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+
+  </head>
+  <body>
+    
+    <script src="./sketch.js"></script>
+  </body>
+</html>
