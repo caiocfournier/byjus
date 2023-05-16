@@ -28,4 +28,11 @@ class Player {
 
         database.ref(playerIndex).set({nome: this.name, positionX: this.positionX, positionY: this.positionY});
     }
+
+    static getPlayersInfo(){
+        var playerinfoRef = database.ref("players");
+        playerinfoRef.on("value", data => {
+            allplayers = data.val();
+        });
+    }
 }
