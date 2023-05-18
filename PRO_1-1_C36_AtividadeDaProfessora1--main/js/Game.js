@@ -13,7 +13,7 @@ class Game {
     }
     start() {
         player = new Player();
-
+        playerCount = player.getCount()
         form = new Form();
         form.display();
 
@@ -31,7 +31,7 @@ class Game {
     handleElement() {
         form.hide();
         form.titleImg.position(40, 50);
-        form.titleIMg.class("gameTitleAfterEffect");
+        form.titleImg.class("gameTitleAfterEffect");
     }
 
     play() {
@@ -42,7 +42,27 @@ class Game {
 
         if (allPlayers !== undefined) {
             image(track, 0, -height * 5, width, height * 6);
+            var index = 0
+            for (var p in allPlayers) {
+                index += 1
+             //continuar o codigo para mover os carros na posição x e y   
+            }
             drawSprites();
+            this.playerControl()
+        }
+    }
+    playerControl() {
+        if (keyIsDown(UP_ARROW)) {
+            player.positionY += 10
+            player.update()
+        }
+        if (keyIsDown(RIGHT_ARROW) && player.positionX<width/2 + 300){
+            player.positionX += 6
+            player.update()
+        }
+        if(keyIsDown(LEFT_ARROW)&& player.positionX> width / 2 - 300) {
+            player.positionX -= 6
+            player.update()
         }
     }
 }
