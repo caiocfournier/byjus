@@ -17,6 +17,9 @@ canvas {
   width: 75%;
   height: 80px;
 }
+.gameTitleAfterEffect{
+   width: 25%;
+   height: 80px; }
 
 .greeting{
   font-size: 40px;

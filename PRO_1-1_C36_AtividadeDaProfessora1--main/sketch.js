@@ -13,12 +13,26 @@ var cars = [];
 var car1_img,
     car2_img,
     track;
+var fuels,
+    powerCoins,
+    obstacles;
+var fuelImage,
+    lifeImage,
+    powerCoinImage,
+    obstacle1Image,
+    obstacle2Image;
+
+
 function preload() {
     backgroundImage = loadImage("./assets/planodefundo.png");
-
     car1_img = loadImage("assets/car1.png");
     car2_img = loadImage("assets/car2.png");
     track = loadImage("assets/PISTA.png");
+    fuelImage = loadImage("assets/fuel.png");
+    lifeImage = loadImage("assets/life.png");
+    powerCoinImage = loadImage("assets/goldcoin.png");
+    obstacle1Image = loadImage("assets/obstacle1.png");
+    obstacle2Image = loadImage("assets/obstacle2.png");
 }
 
 function setup() {
@@ -33,7 +47,6 @@ function setup() {
 
 function draw() {
     background(backgroundImage);
-
     if (playerCount === 2) {
         game.update(1);
     }
