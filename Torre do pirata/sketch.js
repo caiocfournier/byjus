@@ -24,6 +24,7 @@ var aguaAnimacao = [];
 var aguaSpritedata,
     aguaSpritesheet;
 var isGameOver = false;
+var pontuacao = 0;
 
 function preload() {
     backgroundImg = loadImage("./assets/background.gif");
@@ -98,7 +99,9 @@ function draw() {
     }
 
     canhao.display();
-    mostrarBarcos();
+    if(!isGameOver) {
+        mostrarBarcos();
+    }
 }
 
 
@@ -108,13 +111,19 @@ function colisaoComBarco(index) {
         if (bolas[index] !== undefined && barcos[i] !== undefined) {
             var collision = Matter.SAT.collides(bolas[index].body, barcos[i].body);
 
-            if (collision.coliseded) {
+            if (collision.collided) {
                 barcos[i].remove(i);
 
                 Matter.World.remove(world, bolas[index].body);
-                delete bolas[index]
+                delete bolas[index];
+                pontuacao += 1;
             }
         }
+    }
+
+    if(pontuacao === 10) {
+        isGameOver = true;
+        youWin();
     }
 }
 
@@ -157,7 +166,7 @@ function mostrarBarcos() {
                 barcos[i].display();
                 barcos[i].animate();
                 var collision = Matter.SAT.collides(torre, barcos[i].body);
-                if (collision.collided && ! barcos[i].isBroken) {
+                if (collision.collided && !barcos[i].isBroken) {
                     isGameOver = true;
                     gameOver();
                 }
@@ -179,11 +188,25 @@ function keyReleased() {
 
 function gameOver() {
     swal({
-        title: "fim de jogo!!",
-        text: "obrigado por jogar",
+        title: "Fim de Jogo!!",
+        text: "Obrigado por Jogar",
         imageUrl: "https://raw.githubusercontent.com/whitehatjr/PiratesInvasion/main/assets/boat.png",
         imageSize: "150x150",
-        confirmButtonText: "jogar Novamente"
+        confirmButtonText: "Jogar Novamente"
+    }, function (isConfirm) {
+        if (isConfirm) {
+            location.reload();
+        }
+    });
+}
+
+function youWin() {
+    swal({
+        title: "Você derrotou todos os Piratas!!",
+        text: "Obrigado por Jogar",
+        imageUrl: "https://raw.githubusercontent.com/whitehatjr/PiratesInvasion/main/assets/boat.png",
+        imageSize: "150x150",
+        confirmButtonText: "Jogar Novamente"
     }, function (isConfirm) {
         if (isConfirm) {
             location.reload();
