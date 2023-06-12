@@ -30,7 +30,7 @@ function preload() {
     track = loadImage("assets/PISTA.png");
     fuelImage = loadImage("assets/fuel.png");
     lifeImage = loadImage("assets/life.png");
-    powerCoinImage = loadImage("assets/goldcoin.png");
+    powerCoinImage = loadImage("assets/goldCoin.png");
     obstacle1Image = loadImage("assets/obstacle1.png");
     obstacle2Image = loadImage("assets/obstacle2.png");
 }
@@ -52,6 +52,10 @@ function draw() {
     }
     if (gameState === 1) {
         game.play();
+    }
+    if (gameState === 2) {
+        game.showLeaderboard();
+        game.end();
     }
 }
 

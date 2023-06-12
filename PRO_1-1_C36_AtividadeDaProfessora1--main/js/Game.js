@@ -93,13 +93,23 @@ class Game {
         ];
         this.addSprites(fuels, 4, fuelImage, 0.02);
         this.addSprites(powerCoins, 18, powerCoinImage, 0.09);
-        // this.addSprites(obstacles, obstaclesPositions.length, obstacle1Image, 0.04,obstaclesPositions);
+        this.addSprites(obstacles, obstaclesPositions.length, obstacle1Image, 0.04, obstaclesPositions);
     }
 
     handleElement() {
         form.hide();
         form.titleImg.position(40, 50);
         form.titleImg.class("gameTitleAfterEffect");
+
+        this.leadeboardTitle.html("Placar");
+        this.leadeboardTitle.class("resetText");
+        this.leadeboardTitle.position(width / 3 - 60, 40);
+
+        this.leader1.class("leadersText");
+        this.leader1.position(width / 3 - 50, 80);
+
+        this.leader2.class("leadersText");
+        this.leader2.position(width / 3 - 50, 130);
     }
 
     play() {
@@ -113,7 +123,7 @@ class Game {
             image(track, 0, -height * 5, width, height * 6);
             this.showFuelBar();
             this.showLife();
-            // this.showLeaderBoard();
+            this.showLeaderboard();
 
             var index = 0
             for (var p in allPlayers) {
@@ -132,6 +142,7 @@ class Game {
 
                     this.handleFuel(index);
                     this.handlePowerCoins(index);
+                    this.handleObstaclesCollision(index);
                     camera.position.y = cars[index - 1].position.y;
                 }
                 this.playerControl();
@@ -177,15 +188,15 @@ class Game {
             player.update()
         }
     }
-    addSprites(spriteGroup, numberOfSprites, spriteImage, scale, position = []) {
+    addSprites(spriteGroup, numberOfSprites, spriteImage, scale, positions = []) {
         for (var i = 0; i < numberOfSprites; i++) {
             var x,
                 y;
 
-            if (position.length > 0) {
-                x = position[i].x;
-                y = position[i].y;
-                spriteImage = position[i].x;
+            if (positions.length > 0) {
+                x = positions[i].x;
+                y = positions[i].y;
+                spriteImage = positions[i].image;
             } else {
                 x = random(width / 2 + 150, width / 2 - 150);
                 y = random(-height * 4.5, height - 400);
@@ -238,6 +249,9 @@ class Game {
         });
     }
 
+    end(){
+        console.log("fim de jogo");
+    }
 
     showLife() {
         push();
@@ -261,18 +275,17 @@ class Game {
         pop();
     }
 
-    handleObstaclesColision(index){
-       if (cars[index - 1].collide(obstacle)){
-        if (this.leftKeyActive) {
-            player.positionX += 100;
+    handleObstaclesCollision(index) {
+        if (cars[index - 1].collide(obstacles)) {
+            if (this.leftKeyActive) {
+                players.positionX += 100;
+            } else {
+                players.positionX += 100;
+            }
+            if (players.life > 0) {
+                players.life -= 185 / 4;
+            }
+            players.update();
         }
-        else {
-            player.positionX += 100;
-        }
-        if (players.life > 0){
-            player.life -= 185/4;
-        }
-        player.update();
-       } 
     }
 }
