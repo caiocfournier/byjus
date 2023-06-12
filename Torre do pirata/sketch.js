@@ -111,7 +111,7 @@ function colisaoComBarco(index) {
         if (bolas[index] !== undefined && barcos[i] !== undefined) {
             var collision = Matter.SAT.collides(bolas[index].body, barcos[i].body);
 
-            if (collision.collided) {
+            if (collision.collided && !barcos[i].isBroken){
                 barcos[i].remove(i);
 
                 Matter.World.remove(world, bolas[index].body);
