@@ -32,7 +32,7 @@ function preload() {
 
     zombieImg = loadAnimation("assets/zumbi1.png", "assets/zumbi2.png", "assets/zumbi3.png", "assets/zumbi4.png", "assets/zumbi5.png", "assets/zumbi6.png", "assets/zumbi7.png", "assets/zumbi8.png", "assets/zumbi9.png", "assets/zumbi10.png", "assets/zumbi11.png", "assets/zumbi12.png")
 
-    bgImg = loadImage("assets/bg-jogo.jpg")
+    bgImg = loadImage("assets/bg-jogo.jpg");
 
 }
 
@@ -48,7 +48,6 @@ function setup() {
     player = createSprite(displayWidth - 1150, displayHeight - 300, 50, 50);
     player.addImage(shooterImg)
     player.scale = 0.3
-    player.debug = true
     player.setCollider("rectangle", 0, 0, 300, 300)
 
     // criando sprites para representar vidas restantes
@@ -160,12 +159,11 @@ function draw() {
 // criando função para gerar zumbis
 function enemy() {
     if (frameCount % 50 === 0) { // dando posições x e y aleatórias para o zumbi aparecer
-        zombie = createSprite(random(500, 1100), player.y, (100, 500), 40, 40);
+        zombie = createSprite(random(1400, 1900), random(200, player.y));
 
         zombie.addAnimation("zombie", zombieImg);
-        zombie.scale = 1;
+        zombie.scale = 2;
         zombie.velocityX = -3;
-        zombie.debug = true;
         zombie.setCollider("rectangle", 0, 0, 90, 90);
 
         /*zombie2.addImage(zombieImg2);
