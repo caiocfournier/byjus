@@ -31,8 +31,9 @@ function preload() {
     shooter_shooting = loadImage("assets/shooter_3.png")
 
     zombieImg = loadAnimation("assets/zumbi1.png", "assets/zumbi2.png", "assets/zumbi3.png", "assets/zumbi4.png", "assets/zumbi5.png", "assets/zumbi6.png", "assets/zumbi7.png", "assets/zumbi8.png", "assets/zumbi9.png", "assets/zumbi10.png", "assets/zumbi11.png", "assets/zumbi12.png")
+    zombieImg2 = loadAnimation("assets/zumbi-verde1.png", "assets/zumbi-verde2.png", "assets/zumbi-verde3.png", "assets/zumbi-verde4.png", "assets/zumbi-verde5.png", "assets/zumbi-verde6.png", "assets/zumbi-verde7.png", "assets/zumbi-verde8.png", "assets/zumbi-verde9.png", "assets/zumbi-verde10.png", "assets/zumbi-verde11.png", "assets/zumbi-verde12.png", "assets/zumbi-verde13.png", "assets/zumbi-verde14.png", "assets/zumbi-verde15.png", "assets/zumbi-verde16.png", "assets/zumbi-verde17.png", "assets/zumbi-verde18.png")
 
-    bgImg = loadImage("assets/bg-jogo.jpg");
+    bgImg = loadImage("assets/bg3.jpeg");
 
 }
 
@@ -45,25 +46,25 @@ function setup() {
   bg.scale = 1.1;*/
 
     // criando o sprite do jogador
-    player = createSprite(displayWidth - 1150, displayHeight - 300, 50, 50);
+    player = createSprite(displayWidth - 1600, displayHeight - 300, 50, 50);
     player.addImage(shooterImg)
-    player.scale = 0.3
+    player.scale = 0.4
     player.setCollider("rectangle", 0, 0, 300, 300)
 
     // criando sprites para representar vidas restantes
     heart1 = createSprite(displayWidth - 150, 40, 20, 20)
     heart1.visible = false
     heart1.addImage("heart1", heart1Img)
-    heart1.scale = 0.4
+    heart1.scale = 0.3
 
     heart2 = createSprite(displayWidth - 100, 40, 20, 20)
     heart2.visible = false
     heart2.addImage("heart2", heart2Img)
-    heart2.scale = 0.4
+    heart2.scale = 0.3
 
     heart3 = createSprite(displayWidth - 150, 40, 20, 20)
     heart3.addImage("heart3", heart3Img)
-    heart3.scale = 0.4
+    heart3.scale = 0.3
 
     // criando grupo de zumbis
     zombieGroup = new Group();
@@ -100,7 +101,6 @@ function draw() {
 
             if (zombieGroup[i].isTouching(bulletGroup)) {
                 zombieGroup[i].destroy();
-                bulletGroup.destroyEach();
             }
         }
     }
@@ -159,24 +159,24 @@ function draw() {
 // criando função para gerar zumbis
 function enemy() {
     if (frameCount % 50 === 0) { // dando posições x e y aleatórias para o zumbi aparecer
-        zombie = createSprite(random(1400, 1900), random(200, player.y));
+        zombie = createSprite(random(1200, window.width), random(100, window.height-100));
+        zombie2 = createSprite(random(1200, window.width), random(100, window.height-100));
 
         zombie.addAnimation("zombie", zombieImg);
-        zombie.scale = 2;
+        zombie.scale = 3;
         zombie.velocityX = -3;
         zombie.setCollider("rectangle", 0, 0, 90, 90);
 
-        /*zombie2.addImage(zombieImg2);
-    zombie2.scale = 0.15;
-    zombie2.velocityX = -3;
-    zombie2.debug= true;
-    zombie2.setCollider("rectangle",0,0,400,400);*/
+        zombie2.addAnimation("zombie-verde", zombieImg2);
+        zombie2.scale = 0.5;
+        zombie2.velocityX = -8;
+        zombie2.setCollider("rectangle",0,0,400,400);
 
-        zombie.lifetime = 400;
+        zombie.lifetime = 600;
         zombieGroup.add(zombie);
 
-        // zombie2.lifetime = 400;
-        // zombieGroup.add(zombie2);
+        zombie2.lifetime = 400;
+        zombieGroup.add(zombie2);
     }
 
 }
