@@ -147,8 +147,8 @@ function draw() {
         }
     }
 
-    if (bullets === 0) {
-        gameState = "loading"
+    if (bullets === 0 && gameState === "shooting") {
+        gameState = "loading";
     }
 
     if(recoveryLife >= 100){ 
@@ -176,14 +176,17 @@ function draw() {
     player.destroy();
   }
 
-    if (gameState === "loading") {
+    if (gameState === "loading" || gameState === "loaded") {
         textSize(100);
         fill("blue");
         text("Tempo de Recarga", displayWidth/2 - 500, displayHeight/2);
-        setTimeout(() => {
-            bullets = 10;
-            gameState = "shooting";
-        }, 5000);
+        if (gameState === "loading") {
+            setTimeout(() => {
+                bullets = 10;
+                gameState = "shooting";
+            }, 5000);
+        }
+        gameState = "loaded";
     }
     // movendo o jogador para cima e para baixo e tornando o jogo compatível com dispositivos móveis usando toques
     if (keyDown("UP_ARROW") || touches.length > 0) {
