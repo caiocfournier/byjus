@@ -14,9 +14,15 @@ h1 {
     border-color: blue;
 }
 
-.dados, h1{
+h1{
     border: solid;
-    border-color: blue
+    border-color: blue;
+    
+}
+
+.dados{
+    border: solid;
+    border-color: blue;
 }
 
 .grid{
@@ -42,3 +48,33 @@ body{
     width: 80%;
     height: 80%
 }
+
+.item{
+    position: relative;
+}
+
+.item h2{
+    position: relative;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -40%);
+    opacity: 0;
+    color:red
+}
+
+.item:hover h2{
+    opacity: 1;
+}
+
+.item:hover img{
+    opacity: 0.3;
+}
+
+a:link{
+    color: white
+}
+
+a:visited{
+    color:aquamarine
+}
+
