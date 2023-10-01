@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "great-indigo-carrot",
+    "slug": "snack-a9d232e8-b5c1-4c70-b750-bb507bff5f50",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.caiocfournier.snacka9d232e8b5c14c70b750bb507bff5f50"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e25a755d-e7e2-47c6-9890-0b29a4153f07"
+      }
+    }
+  }
+}
