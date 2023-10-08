@@ -1,6 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
-import {Component} from 'react/cjs/react.production.min';
+import {Component} from 'react';
 
 export default class SearchScreen extends Component {
     render() {
