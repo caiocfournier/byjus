@@ -25,16 +25,36 @@ export default class MeteorScreen extends Component {
     }
 
     render() {
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center"
-                }}>
-                <Text>Tela dos Meteoros!</Text>
-            </View>
-        )
+        if(Object.keys(this.state.meteors).lenght === 0){
+            return (
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}>
+                    <Text>Carregando...</Text>
+                </View>
+            )
+        } else {
+            let meteor_arr = Object.keys(this.state.meteors).map(meteors_date => {
+                return this.state.meteors[meteors_date]
+            })
+            let meteors = [].concat.apply([], meteor_arr);
+
+            meteors.forEach(function (element) {
+                let diameter = (element.estimated_diameter.kilometers.estimated_diameter_max + 
+element.estimated_diameter.kilometers.estimated_diameter_min) / 2
+                let threatScore = (diameter / element.close_approach_data[0].miss_distance.kilometers) * 1000000000;
+                element.threat_score = threatScore;
+            });
+
+            meteors.sort(function(a, b){
+                return b.threat_score - a.threat_score
+            });
+            meteors = meteors.slice(0, 5)
+        };
     }
 }
+        
 
