@@ -1,10 +1,33 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { 
+    Text, 
+    View,
+    StyleSheet,
+    Platform,
+    StatusBar,
+    Image } from 'react-native';
+import { RFValue } from "react-native-responsive-fontsize";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CreatePost } from './CreatePost';
+import PostCard from './PostCard';
+
 import { FlatList } from 'react-native-gesture-handler';
 
-export default class Feed extends Component{
+let posts = require("./temp_posts.json");
+
+export default class Feed extends Component {   
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentDidMount() { }
+
+    renderItem = ({ item: post }) => {
+        return <PostCard post={post} />;
+    };
+
+    keyExtractor = (item, index) => index.toString();
+
     render(){
         return(
             <View style={styles.container}>
