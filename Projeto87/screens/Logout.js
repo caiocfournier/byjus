@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import firebase from "firebase";
+import { getAuth, signOut } from 'firebase/auth';
 
 export default class Logout extends Component {
     componentDidMount() {
-        firebase.auth().signOut();
-    }
+		const auth = getAuth();
+		signOut(auth)
+			.then(() => {
+				this.props.navigation.replace('Login');
+			})
+			.catch((error) => {
+				Alert.alert(error.message);
+			});
+	}
     render() {
         return (
             <View style={styles.container}>

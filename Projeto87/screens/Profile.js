@@ -11,7 +11,9 @@ import {
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-import firebase from "firebase";
+import { getAuth } from 'firebase/auth';
+import { ref, update, onValue } from 'firebase/database';
+import db from '../config';
 
 export default class Profile extends Component{
     constructor(props) {
@@ -23,18 +25,23 @@ export default class Profile extends Component{
             name: ""
         };
     }
+
     toggleSwitch() {
         const previous_state = this.state.isEnabled;
         const theme = !this.state.isEnabled ? "dark" : "light";
-        var updates = {};
-        updates[
-            "/users/" + firebase.auth().currentUser.uid + "/current_theme"
-        ] = theme;
-        firebase
-            .database()
-            .ref()
-            .update(updates);
-        this.setState({ isEnabled: !previous_state, light_theme: previous_state });
+
+        const auth = getAuth();
+		const user = auth.currentUser;
+
+		if (user) {
+			var updates = {};
+			updates['users/' + user.uid + '/current_theme'] = theme;
+
+			const dbRef = ref(db, '/');
+			update(dbRef, updates);
+
+			this.setState({ isEnabled: !previous_state, light_theme: previous_state });
+		}
     }
 
     componentDidMount() {
@@ -43,20 +50,20 @@ export default class Profile extends Component{
 
     async fetchUser() {
         let theme, name, image;
-        await firebase
-            .database()
-            .ref("/users/" + firebase.auth().currentUser.uid)
-            .on("value", function (snapshot) {
-                theme = snapshot.val().current_theme;
-                name = `${snapshot.val().first_name} ${snapshot.val().last_name}`;
-                image = snapshot.val().profile_picture;
-            });
-        this.setState({
-            light_theme: theme === "light" ? true : false,
-            isEnabled: theme === "light" ? false : true,
-            name: name,
-            profile_image: image
-        });
+		const auth = getAuth();
+		const userId = auth.currentUser.uid;
+
+		onValue(ref(db, '/users/' + userId), (snapshot) => {
+			theme = snapshot.val().current_theme;
+			name = `${snapshot.val().first_name} ${snapshot.val().last_name}`;
+			image = snapshot.val().profile_picture;
+			this.setState({
+				light_theme: theme === 'light' ? true : false,
+				isEnabled: theme === 'light' ? false : true,
+				name: name,
+				profile_image: image,
+			});
+		});
     }
 
     render() {

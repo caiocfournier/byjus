@@ -1,20 +1,23 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
-    View,
-    StyleSheet,
-    SafeAreaView,
-    Platform,
-    StatusBar,
-    Image,
-    TextInput,
-    Alert,
-    TouchableOpacity,
-    Text
-} from "react-native";
+	View,
+	StyleSheet,
+	SafeAreaView,
+	Platform,
+	StatusBar,
+	Image,
+	TextInput,
+	Alert,
+	TouchableOpacity,
+	Text,
+} from 'react-native';
 
-import firebase from "firebase";
-import { RFValue } from "react-native-responsive-fontsize";
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { ref, set } from 'firebase/database';
+import db from '../config';
 import * as Font from "expo-font";
+
+import { RFValue } from "react-native-responsive-fontsize";
 
 let customFonts = {
   "Bubblegum-Sans": require("../assets/fonts/BubblegumSans-Regular.ttf"),
@@ -45,23 +48,25 @@ export default class RegisterScreen extends Component {
 
     registerUser = (email, password, confirmPassword, first_name, last_name) => {
         if (password == confirmPassword) {
-            firebase
-                .auth()
-                .createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    Alert.alert("Usuário registrado!");
-                    this.props.navigation.replace("Login");
-                    firebase.database().ref("/users/" + userCredential.user.uid)
-                        .set({
-                            email: userCredential.user.email,
-                            first_name: first_name,
-                            last_name: last_name,
-                            current_theme: "dark"
-                        })
-                })
-                .catch(error => {
-                    Alert.alert(error.message);
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                Alert.alert('User registered!!');
+                console.log(userCredential.user.uid);
+                this.props.navigation.replace('Login');
+
+                const dbRef = ref(db, '/users/' + userCredential.user.uid);
+
+                set(dbRef, {
+                    email: userCredential.user.email,
+                    first_name: first_name,
+                    last_name: last_name,
+                    current_theme: 'dark',
                 });
+            })
+            .catch(error => {
+                Alert.alert(error.message);
+            });
         } else {
             Alert.alert("As senhas não são iguais!");
         }

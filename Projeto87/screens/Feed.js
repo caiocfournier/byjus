@@ -13,7 +13,9 @@ import PostCard from './PostCard';
 
 import { FlatList } from 'react-native-gesture-handler';
 
-import firebase from "firebase";
+import { getAuth } from 'firebase/auth';
+import { ref, onValue } from 'firebase/database';
+import db from '../config';
 
 let posts = require("./temp_posts.json");
 
@@ -28,13 +30,15 @@ export default class Feed extends Component {
 
     fetchUser = () => {
         let theme;
-        firebase
-            .database()
-            .ref("/users/" + firebase.auth().currentUser.uid)
-            .on("value", (snapshot) => {
-                theme = snapshot.val().current_theme
-                this.setState({ light_theme: theme === "light" })
-            })
+		const auth = getAuth();
+		const userId = auth.currentUser.uid;
+
+		onValue(ref(db, '/users/' + userId), (snapshot) => {
+			theme = snapshot.val().current_theme;
+			this.setState({
+				light_theme: theme === 'light',
+			});
+		});
     }
 
     componentDidMount() {

@@ -9,7 +9,9 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import firebase from "firebase";
+import { getAuth } from 'firebase/auth';
+import { ref, onValue } from 'firebase/database';
+import db from '../config';
 
 export default class PostCard extends Component {
     constructor(props) {
@@ -25,13 +27,15 @@ export default class PostCard extends Component {
 
     fetchUser = () => {
         let theme;
-        firebase
-            .database()
-            .ref("/users/" + firebase.auth().currentUser.uid)
-            .on("value", (snapshot) => {
-                theme = snapshot.val().current_theme
-                this.setState({ light_theme: theme === "light" })
-            })
+		const auth = getAuth();
+		const userId = auth.currentUser.uid;
+
+		onValue(ref(db, '/users/' + userId), (snapshot) => {
+			theme = snapshot.val().current_theme;
+			this.setState({
+				light_theme: theme === 'light',
+			});
+		});
     }
 
     render(){

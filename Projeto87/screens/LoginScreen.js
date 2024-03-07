@@ -12,7 +12,7 @@ import {
     Text
 } from "react-native";
 
-import firebase from "firebase";
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Font from "expo-font";
 
@@ -42,11 +42,10 @@ export default class LoginScreen extends Component {
     }
 
     signIn = async (email, password) => {
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                //this.props.navigation.replace("Dashboard");
+                this.props.navigation.replace("Dashboard");
             })
             .catch(error => {
                 Alert.alert(error.message);
@@ -55,6 +54,8 @@ export default class LoginScreen extends Component {
 
 
     render() {
+		const { email, password } = this.state;
+        
         if (this.state.fontsLoaded) {
             const { email, password } = this.state;
 

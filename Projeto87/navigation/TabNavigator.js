@@ -3,11 +3,12 @@ import { StyleSheet } from "react-native";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { RFValue } from "react-native-responsive-fontsize";
+import { getAuth } from 'firebase/auth';
+import { ref, onValue } from 'firebase/database';
+import db from '../config';
 
 import Feed from '../screens/Feed';
 import CreatePost from '../screens/CreatePost';
-
-import firebase from "firebase";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -25,13 +26,15 @@ export default class BottomTabNavigator extends Component {
 
     fetchUser = () => {
         let theme;
-        firebase
-            .database()
-            .ref("/users/" + firebase.auth().currentUser.uid)
-            .on("value", (snapshot) => {
-                theme = snapshot.val().current_theme
-                this.setState({ light_theme: theme === "light" })
-            })
+		const auth = getAuth();
+		const userId = auth.currentUser.uid;
+
+		onValue(ref(db, '/users/' + userId), (snapshot) => {
+			theme = snapshot.val().current_theme;
+			this.setState({
+				light_theme: theme === 'light' ? true : false,
+			});
+		});
     }
 
     render() {
