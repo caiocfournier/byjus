@@ -1,0 +1,28 @@
+<html>
+<head>
+    <meta charset="utf+8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarme</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <div class="container">
+        <h1>Alarme</h1>
+        <div class="alarme-controls">
+            <input type="time" id="alarmTime">
+            <button onclick="setAlarm()">Definir Alarme</button>
+            <button onclick="stopAlarm()">Parar Alarme</button>
+        </div>   
+    </div>
+
+    <div class="container">
+        <div class="alarme-controls">
+            <input type="time" id="alarmTime2">
+            <button onclick="setAlarm2()">Definir Alarme</button>
+            <button onclick="stopAlarm()">Parar Alarme</button>
+        </div>   
+    </div>
+    <audio id="alarmSound" src="die.mp3" loop></audio>
+    <script src="Main.js"></script>
+</body>
+</html>
