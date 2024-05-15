@@ -2,15 +2,14 @@ import * as React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 
-export default class HomeScreen extends React.Component{
-
+export default class HomeScreen extends React.Component {
   iniciar = () => {
-    this.props.navigation.navigate('Cavalo')
+    this.props.navigation.navigate('AnimalScreen', { animalIndex: 0 });
   };
 
-   render(){
-     return(
-       <View style={styles.container}>
+  render() {
+    return (
+      <View style={styles.container}>
         <Text style={styles.title}>Curiosidades do Reino Animal</Text>
         <Text style={styles.description}>
           Esse é o super aplicativo onde você poderá encontrar as mais diversas curiosidades sobre os animais.
@@ -19,8 +18,8 @@ export default class HomeScreen extends React.Component{
           <Text style={styles.buttonText}>COMEÇAR</Text>
         </TouchableOpacity>
       </View>
-     )
-   }
+    );
+  }
 }
 
 const styles = StyleSheet.create({
