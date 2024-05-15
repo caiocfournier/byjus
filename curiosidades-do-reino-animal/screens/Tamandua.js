@@ -1,32 +1,22 @@
-import * as React from "react";
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import * as React from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-export default class Tamandua extends React.Component {
-  proximoAnimal = () => {
-    this.props.navigation.navigate('Hipopotamo')
-  };
-  animalAnterior = () => {
+
+export default class HomeScreen extends React.Component{
+
+  iniciar = () => {
     this.props.navigation.navigate('Cavalo')
   };
 
    render(){
      return(
        <View style={styles.container}>
-        <Text style={styles.text}>Tamanduá</Text>
-        <Text>Tamandua é um gênero de mamíferos da família Myrmecophagidae. É um animal de aparência curiosa. Sua cabeça alongada, que se prolonga pelo focinho, parece um grande tubo. Por não possuir dentes, ele usa as fortes patas dianteiras, dotadas de grandes garras, para destruir formigueiros e cupinzeiros</Text>
-        <Image source=
-{require("../assets/tamandua.jpg")} style={{resizeMode: 'contain',
-width:300, height:250, borderRadius: 10}}>
-</Image>
-        <TouchableOpacity
-          onPress={() => this.animalAnterior()}
-        >
-          <Text>Animal Anterior</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => this.proximoAnimal()}
-        >
-          <Text>Próximo Animal</Text>
+        <Text style={styles.title}>Curiosidades do Reino Animal</Text>
+        <Text style={styles.description}>
+          Esse é o super aplicativo onde você poderá encontrar as mais diversas curiosidades sobre os animais.
+        </Text>
+        <TouchableOpacity style={styles.button} onPress={this.iniciar}>
+          <Text style={styles.buttonText}>COMEÇAR</Text>
         </TouchableOpacity>
       </View>
      )
@@ -36,9 +26,32 @@ width:300, height:250, borderRadius: 10}}>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 20,
   },
-  text: {
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 20,
+  },
+  description: {
     fontSize: 16,
-    fontWeight: 'bold'
-  }
-})
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  button: {
+    backgroundColor: '#4CAF50',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 25,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+});
