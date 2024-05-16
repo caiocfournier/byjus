@@ -47,7 +47,7 @@ export default class TransactionScreen extends Component {
 
     getBookDetails = bookId => {
         bookId = bookId.trim();
-        db.collection("books").where("book_id", "==", bookId).get().theen(snapshot => {
+        db.collection("books").where("book_id", "==", bookId).get().then(snapshot => {
             snapshot.docs.map(doc => {
                 this.setState({bookName: doc.data().book_details.book_name});
             });
