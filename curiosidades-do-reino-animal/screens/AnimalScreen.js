@@ -1,38 +1,32 @@
 import * as React from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-
-const animalData = [
-  {
-    name: 'Cavalo',
-    description: 'Os cavalos são animais magníficos, conhecidos por sua força e beleza.',
-    image: require('../assets/cavalo.jpg'),
-  },
-  {
-    name: 'Tamanduá',
-    description: 'Os tamanduás são conhecidos por suas longas línguas e dieta de formigas.',
-    image: require('../assets/tamandua.jpg'),
-  },
-  {
-    name: 'Hipopótamo',
-    description: 'Os hipopótamos são grandes mamíferos semi-aquáticos nativos da África.',
-    image: require('../assets/hipopotamo.jpg'),
-  },
-  {
-    name: 'Cobra',
-    description: 'As serpentes são répteis sem patas, pertencentes à subordem Serpentes.',
-    image: require('../assets/cobra.jpg'),
-  },
-  {
-    name: 'Falcão',
-    description: 'Os falcões são aves de rapina conhecidos por sua incrível visão e velocidade.',
-    image: require('../assets/falcao.jpg'),
-  },
-];
+import firebase from "firebase";
 
 export default class AnimalScreen extends React.Component {
   
   state = {
+    animalData: [],
     currentIndex: this.props.navigation.getParam('animalIndex', 0),
+  };
+
+  componentDidMount() {
+    this.fetchAnimalData();
+  }
+
+  fetchAnimalData = async () => {
+    try {
+      const animalRef = firebase.database().ref('animals');
+      animalRef.once('value', snapshot => {
+        if (snapshot.exists()) {
+          const animalData = snapshot.val();
+          this.setState({ animalData });
+        } else {
+          console.log("No data available");
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   home = () => {
@@ -41,18 +35,26 @@ export default class AnimalScreen extends React.Component {
 
   proximoAnimal = () => {
     this.setState(prevState => ({
-      currentIndex: (prevState.currentIndex + 1) % animalData.length,
+      currentIndex: (prevState.currentIndex + 1) % this.state.animalData.length,
     }));
   };
 
   animalAnterior = () => {
     this.setState(prevState => ({
-      currentIndex: (prevState.currentIndex - 1 + animalData.length) % animalData.length,
+      currentIndex: (prevState.currentIndex - 1 + this.state.animalData.length) % this.state.animalData.length,
     }));
   };
 
   render() {
-    const currentIndex = this.state.currentIndex;
+    const { animalData, currentIndex } = this.state;
+    if (animalData.length === 0) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.loadingText}>Carregando...</Text>
+        </View>
+      );
+    }
+
     const animal = animalData[this.state.currentIndex];
     return (
       <View style={styles.container}>
@@ -116,5 +118,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     fontWeight: 'bold',
+  },
+  loadingText: {
+    fontSize: 20,
   },
 });

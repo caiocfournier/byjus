@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-
 export default class HomeScreen extends React.Component {
   iniciar = () => {
     this.props.navigation.navigate('AnimalScreen', { animalIndex: 0 });

@@ -1,0 +1,34 @@
+{
+  "animals": [
+      {
+          "name": "Cavalo",
+          "description": "O cavalo é uma das duas subespécies existentes de Equus ferus. É um     mamífero perissodáctilo pertencente à família taxonômica Equidae. O cavalo evoluiu há entre 45 milhões a 55 milhões de anos, desde uma pequena criatura com vários dedos, o Eohippus, até o animal grande e com um único dedo de hoje.",
+          "image": "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTV-9_x4T8m76n7vnQ_F4a88ZcbCoqzI2-sf1CVN03GyDcfEL4p1gJoFonqh4BQo9PpDC8iqcz8ugFKWbY"
+      },
+      {
+          "name": "Tamanduá",
+          "description": "Tamandua é um gênero de mamíferos da família Myrmecophagidae. É um animal de aparência curiosa. Sua cabeça alongada, que se prolonga pelo focinho, parece um grande tubo. Por não possuir dentes, ele usa as fortes patas dianteiras, dotadas de grandes garras, para destruir formigueiros e cupinzeiros.",
+          "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTtRbyIXYfemL98twb8J7uJRX4_iG-dFO1SZjuzNvTNW9jrCS7j"
+      },
+      {
+          "name": "Hipopótamo",
+          "description": "O hipopótamo-comum ou hipopótamo-do-nilo é um mamífero herbívoro de grande porte da África subsariana e uma das duas únicas espécies não extintas da família Hippopotamidae, sendo a outra o hipopótamo-pigmeu. O seu nome provém do grego antigo, significando 'cavalo do rio'.",
+          "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRXSIhjNfzHcqw7AC27l6uldeFN7-BLwf6-BBLifp4uWlIpfAGv"
+      },
+      {
+          "name": "Cobra",
+          "description": "As serpentes, também chamadas ofídios, cobras, mbóis, mboias e malacatifas, são répteis poiquilotérmicos sem patas, pertencentes à subordem Serpentes, ou Ophidia. São bastante próximos dos lagartos, com os quais partilham a ordem Squamata.",
+          "image": "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/03/cobra_getty.jpg"
+      },
+      {
+          "name": "Falcão",
+          "description": "Falcão é o nome genérico dado a várias aves da família Falconidae, mais estritamente aos animais classificados dentro do género Falco, mas algumas espécies também são conhecidas pelo nome genérico peneireiro, devido ao hábito que têm de peneirar para caçar.",
+          "image": "https://files.agro20.com.br/uploads/2020/02/falc%C3%A3o-2.jpg"
+      },
+      {
+          "name": "Gato",
+          "description": "O gato ou gato doméstico é um mamífero carnívoro da família dos felídeos, muito popular como animal de estimação. Ocupando o topo da cadeia alimentar, é predador natural de diversos animais, como roedores, pássaros, lagartixas e alguns insetos.",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF1IwK6-SxM83UpFVY6WtUZxXx-phss_gAUfdKbkTfau6VWVkt"
+      }
+  ]
+}

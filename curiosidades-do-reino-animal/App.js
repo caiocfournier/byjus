@@ -1,6 +1,15 @@
-import * as React from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+
+import firebase from 'firebase';
+import {firebaseConfig} from './config';
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
+}
 
 import AnimalScreen from './screens/AnimalScreen';
 import HomeScreen from './screens/HomeScreen';
