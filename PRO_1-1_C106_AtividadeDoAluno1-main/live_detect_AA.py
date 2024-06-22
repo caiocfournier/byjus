@@ -2,7 +2,7 @@ import cv2
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-eye_cascade = cv2.CascadeClassifier('C:/Users/preet/AppData/Local/Progamas/Python/Python39/Lib/site-packages/cv2/data/haarcascade_eye.xml')
+eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 
 vid = cv2.VideoCapture(0)
 
